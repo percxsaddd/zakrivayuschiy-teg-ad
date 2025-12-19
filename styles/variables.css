@@ -1,28 +1,47 @@
-/* В этом файле будут храниться все значения переменных в исходном состоянии, а так же их изменения в зависимости от ширины устройства */
 :root {
-  --color-black: #000000;
-  --color-white: #ffffff;
-  --color-green: #00cc14;
+  --font: 'Inter-Variable';
+  --font-accent: 'PressStart2P-Regular';
 
-  --text-color: var(--color-black, #000000);
-  --page-background-color: var(--color-white, #ffffff);
+  --main-font-size: 1.125rem;
+  --accent-font-size: 0.875rem;
+  
+  --floppy-size: 21px;
+  --modal-padding-inline: 30px;
 
-  --page-main-font-family: "Inter", sans-serif;
-  --page-main-font-weight: 400;
-  --page-accent-font-family: "PressStart2P", fantasy;
-  --page-background-image: repeating-linear-gradient(
-      to left,
-      #d3d3d3 0 2px,
-      #d3d3d300 2px 4px
+  --card-inline-size: clamp(min(100%, 375px), 50vw, 700px);
+  
+  --main-color: #000;
+  --bg-color: #fff;
+  --heart-hover: #000;
+  --button-text-color: #fff;
+
+  --card-font-weight: 400;
+  --card-title-font-weight: 700;
+
+  --bg-image: repeating-linear-gradient(
+      to right, 
+      #d3d3d3 0,
+      #d3d3d3 2px,
+      transparent 2px,
+      transparent 4px
+    ), 
+    repeating-linear-gradient(
+      to bottom, 
+      #d3d3d3 0,
+      #d3d3d3 2px,
+      transparent 2px,
+      transparent 4px
     ),
-    repeating-linear-gradient(to bottom, #d3d3d3 0 2px, #d3d3d300 2px 4px),
-    linear-gradient(to bottom, #e7e7e7 0.01%, #1a1a1a);
+    linear-gradient(
+      to bottom,
+      #e7e7e7 0.01%,
+      #1a1a1a
+    );
+}
 
-  --like-main-body-color: none;
-  --like-contour-color: var(--text-color, #000000);
-  --like-sparks-color: #ff0000;
-
-  --headings-font-weight: 700;
-
-  --button-text-color: var(--page-background-color, #fff);
+@media (width <= 375px) {
+  :root {
+    --floppy-size: 28px;
+    --modal-padding-inline: 40px;
+  }
 }

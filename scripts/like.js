@@ -1,42 +1,42 @@
-// like.js
-const likeHeartArray = document.querySelectorAll('.like-icon');
-const likeButtonArray = document.querySelectorAll('.card__like-button');
-const iconButtonArray = document.querySelectorAll('.card__icon-button');
-
-// Обработчики для иконок сердца
-iconButtonArray.forEach((iconButton, index) => {
-  iconButton.addEventListener('click', (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    toggleIsLiked(likeHeartArray[index], likeButtonArray[index]);
-  });
-});
-
-// Обработчики для кнопок Like
-likeButtonArray.forEach((button, index) => {
-  button.addEventListener('click', (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    toggleIsLiked(likeHeartArray[index], button);
-  });
-});
-
-function toggleIsLiked(heart, button) {
-  heart.classList.toggle('is-liked');
-  setButtonText(heart, button);
+function changeTheme(theme) {
+  document.documentElement.className = '';
+  document.documentElement.classList.add(`theme-${theme}`);
+  localStorage.setItem('theme', theme);
 }
 
-function setButtonText(heart, button) {
-  const buttonText = button.querySelector('.button__text');
-  if (!buttonText) return;
-  
-  if (heart.classList.contains('is-liked')) {
-    setTimeout(() => {
-      buttonText.textContent = 'Unlike';
-    }, 500);
-  } else {
-    setTimeout(() => {
-      buttonText.textContent = 'Like';
-    }, 500);
+(function initTheme() {
+  const theme = localStorage.getItem('theme');
+  if (theme) {
+    changeTheme(theme);
   }
-}
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  const root = document.documentElement;
+  const themeButtons = document.querySelectorAll('.theme-menu__button');
+
+  function setDisabled(theme) {
+    themeButtons.forEach((item) => {
+      if (item.getAttribute('data-theme') === theme) {
+        item.setAttribute('disabled', true);
+      } else {
+        item.removeAttribute('disabled');
+      }
+    });
+  }
+
+  if ([...root.classList].includes('theme-light')) {
+    setDisabled('light');
+  } else if ([...root.classList].includes('theme-dark')) {
+    setDisabled('dark');
+  } else {
+    setDisabled('auto');
+  }
+
+  themeButtons.forEach((button) => {
+    button.onclick = () => {
+      changeTheme(button.getAttribute('data-theme'));
+      setDisabled(button.getAttribute('data-theme'));
+    };
+  });
+});
